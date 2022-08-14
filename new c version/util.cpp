@@ -40,12 +40,6 @@ void init()
 
     load_word_list();
 
-    // Set up a generic keyboard event.
-    ip.type = INPUT_KEYBOARD;
-    ip.ki.wScan = 0; // hardware scan code for key
-    ip.ki.time = 0;
-    ip.ki.dwExtraInfo = 0;
-
     while (!(GetKeyState(enter) & 0x8000))
     {
     }
@@ -146,6 +140,11 @@ void do_desktop_search(int require)
     int count = 0;
     while (count < require)
     {
+        // Set up a generic keyboard event.
+        ip.type = INPUT_KEYBOARD;
+        ip.ki.wScan = 0; // hardware scan code for key
+        ip.ki.time = 0;
+        ip.ki.dwExtraInfo = 0;
 
         // Set up a generic keyboard event.
         ip.type = INPUT_KEYBOARD;
