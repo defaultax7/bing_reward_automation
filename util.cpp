@@ -136,7 +136,7 @@ void open_dev_mode()
     Sleep(600);
 }
 
-void do_desktop_search(int require)
+void do_search(int require)
 {
     int count = 0;
     while (count < require)
@@ -160,10 +160,10 @@ void do_desktop_search(int require)
 
 void search_for_me()
 {
-    do_desktop_search(31);
+    do_search(31);
     open_dev_mode();
     toggle_mobile_view();
-    do_desktop_search(21);
+    do_search(21);
     open_dev_mode();
     open_dev_mode();
     toggle_mobile_view();
