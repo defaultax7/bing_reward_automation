@@ -16,7 +16,8 @@ char control = VK_CONTROL;
 char l_control = 0xA2;
 char right_arrow = 0x27;
 char down_arrow = 0x28;
-string word_list[10000];
+const int total_num_of_word = 14428;
+string word_list[total_num_of_word];
 
 void load_word_list()
 {
@@ -57,7 +58,7 @@ void key_press(char code)
     SendInput(1, &ip, sizeof(INPUT));
 
     // get a random intervel between 0 to 150
-    Sleep(rand() % 150 + 30);
+    Sleep(rand() % 100 + 30);
 }
 
 void call_bing_search()
@@ -132,7 +133,7 @@ void open_dev_mode()
 {
     key_press(VK_F12);
 
-    Sleep(200);
+    Sleep(600);
 }
 
 void do_desktop_search(int require)
@@ -146,29 +147,23 @@ void do_desktop_search(int require)
         ip.ki.time = 0;
         ip.ki.dwExtraInfo = 0;
 
-        // Set up a generic keyboard event.
-        ip.type = INPUT_KEYBOARD;
-        ip.ki.wScan = 0; // hardware scan code for key
-        ip.ki.time = 0;
-        ip.ki.dwExtraInfo = 0;
-
         call_bing_search();
-        type_word(word_list[rand() % 10000]);
-        select_from_suggestion(rand() % 8);
+        type_word(word_list[rand() % total_num_of_word]);
+        //select_from_suggestion(rand() % 2);
         Sleep(500);
         key_press(enter);
 
-        Sleep(rand() % 1000 + 100);
+        Sleep(rand() % 1000 + 200);
         ++count;
     }
 }
 
 void search_for_me()
 {
-    do_desktop_search(30);
+    do_desktop_search(31);
     open_dev_mode();
     toggle_mobile_view();
-    do_desktop_search(20);
+    do_desktop_search(21);
     open_dev_mode();
     open_dev_mode();
     toggle_mobile_view();
