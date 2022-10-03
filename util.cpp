@@ -107,7 +107,7 @@ void toggle_mobile_view()
     mobile_ip.ki.wVk = control;
     SendInput(1, &mobile_ip, sizeof(INPUT));
 
-    Sleep(400);
+    Sleep(1000);
 }
 
 void type_word(string word)
@@ -131,9 +131,20 @@ void select_from_suggestion(int count)
 
 void open_dev_mode()
 {
-    key_press(VK_F12);
+    INPUT aaa;
+    aaa.type = INPUT_KEYBOARD;
+    aaa.ki.wScan = 0;
+    aaa.ki.time = 0;
+    aaa.ki.dwExtraInfo = 0;
 
-    Sleep(600);
+    aaa.ki.wVk = VK_F12;
+    aaa.ki.dwFlags = 0; // 0 for key press
+    SendInput(1, &aaa, sizeof(INPUT));
+
+    aaa.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+    SendInput(1, &aaa, sizeof(INPUT));
+
+    Sleep(1000);
 }
 
 void do_search(int require)
@@ -160,7 +171,7 @@ void do_search(int require)
 
 void search_for_me()
 {
-    do_search(31);
+    do_search(36);
     open_dev_mode();
     toggle_mobile_view();
     do_search(21);
