@@ -3,6 +3,7 @@
 #include <time.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 INPUT ip;
@@ -16,8 +17,7 @@ char control = VK_CONTROL;
 char l_control = 0xA2;
 char right_arrow = 0x27;
 char down_arrow = 0x28;
-const int total_num_of_word = 14428;
-string word_list[total_num_of_word];
+vector<string> word_list;
 
 void load_word_list()
 {
@@ -28,7 +28,7 @@ void load_word_list()
     {
         while (getline(myfile, line))
         {
-            word_list[i++] = line;
+            word_list.push_back(line);
         }
         myfile.close();
     }
@@ -110,9 +110,10 @@ void toggle_mobile_view()
     Sleep(1000);
 }
 
-void type_word(string word)
+void type_word(string word, int count)
 {
-
+    cout << count + 1;
+    cout << "\t";
     for (int i = 0; i < word.length(); ++i)
     {
         key_press(toupper(word.at(i)));
@@ -159,8 +160,8 @@ void do_search(int require)
         ip.ki.dwExtraInfo = 0;
 
         call_bing_search();
-        type_word(word_list[rand() % total_num_of_word]);
-        //select_from_suggestion(rand() % 2);
+        type_word(word_list.at(rand() % word_list.size()), count);
+        // select_from_suggestion(rand() % 2);
         Sleep(500);
         key_press(enter);
 
